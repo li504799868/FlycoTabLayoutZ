@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
-version = "2.1.3"
+apply plugin: 'com.novoda.bintray-release'
+
+version = "1.0.0"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -21,4 +23,14 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:28.0.0'
+}
+
+// jcenter发布的信息
+publish {
+    userOrg = 'lizp' // 创建repo的位置
+    groupId = 'com.lzp' // 引用的分组名称
+    artifactId = 'FlycoTabLayoutZ'//项目名称
+    publishVersion = version//版本号
+    desc = '在FlycoTabLayout的基础上，扩展出SlidingScaleTabLayout，实现滑动可以改变tab字体的大小的切换效果'
+    website = 'https://github.com/li504799868/SlidingTabLayout'
 }

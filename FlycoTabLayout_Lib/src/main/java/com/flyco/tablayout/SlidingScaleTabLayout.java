@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 滑动TabLayout,对于ViewPager的依赖性强
+ * 滑动切换TabLayout,tab的文字大小会发生变化
  */
 public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
 
