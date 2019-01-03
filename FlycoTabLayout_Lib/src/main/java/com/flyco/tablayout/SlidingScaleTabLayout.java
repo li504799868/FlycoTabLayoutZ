@@ -29,12 +29,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.transformer.IViewPagerTransformer;
 import com.flyco.tablayout.transformer.TabScaleTransformer;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
 import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 滑动切换TabLayout,tab的文字大小会发生变化
@@ -130,6 +132,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
      * tab摆放的位置，目前只支持top和bottom
      */
     private int mTabGravity;
+
+    private TabScaleTransformer defaultTransformer;
 
     public SlidingScaleTabLayout(Context context) {
         this(context, null, 0);
@@ -265,9 +269,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void initViewPagerListener() {
         this.mViewPager.removeOnPageChangeListener(this);
         this.mViewPager.addOnPageChangeListener(this);
-        this.mViewPager.setPageTransformer(true,
-                new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize)
-        );
+        defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize);
+        this.mViewPager.setPageTransformer(true, defaultTransformer);
         notifyDataSetChanged();
     }
 
@@ -830,6 +833,14 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
     public boolean isTextAllCaps() {
         return mTextAllCaps;
+    }
+
+    public List<IViewPagerTransformer> getTransformers() {
+        return defaultTransformer.getTransformers();
+    }
+
+    public void setTransformers(List<IViewPagerTransformer> transformers) {
+        this.defaultTransformer.setTransformers(transformers);
     }
 
     public TextView getTitleView(int tab) {

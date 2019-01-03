@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingScaleTabLayout;
 
+import java.util.List;
+
 /**
  * Created by li.zhipeng on 2019/1/3.
  * <p>
@@ -24,6 +26,8 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
 
     private float textUnSelectSize;
 
+    private List<IViewPagerTransformer> transformers = null;
+
     public TabScaleTransformer(SlidingScaleTabLayout slidingScaleTabLayout, PagerAdapter pagerAdapter,
                                float textSelectSize, float textUnSelectSize) {
         this.slidingScaleTabLayout = slidingScaleTabLayout;
@@ -38,5 +42,19 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
         if (position >= -1 && position <= 1) { // [-1,1]
             currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * position));
         }
+        // 回调设置的页面切换效果设置
+        if (transformers != null && transformers.size() > 0) {
+            for (IViewPagerTransformer transformer : transformers) {
+                transformer.transformPage(view, position);
+            }
+        }
+    }
+
+    public List<IViewPagerTransformer> getTransformers() {
+        return transformers;
+    }
+
+    public void setTransformers(List<IViewPagerTransformer> transformers) {
+        this.transformers = transformers;
     }
 }
