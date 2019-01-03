@@ -1,8 +1,7 @@
-package com.lzp.tablayout.demo;
+package com.lzp.tablayout.demo.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -13,11 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingScaleTabLayout;
+import com.lzp.tablayout.demo.R;
 
-public class MainActivity extends AppCompatActivity {
+public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
 
     private int[] colors = {
-            Color.BLUE, Color.BLUE, Color.CYAN, Color.RED
+            Color.BLACK, Color.BLUE, Color.CYAN, Color.RED
     };
 
     @Override
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            TextView textView = new TextView(MainActivity.this);
+            TextView textView = new TextView(SlidingScaleTabLayoutActivity.this);
             textView.setBackgroundColor(colors[position]);
             textView.setText(getPageTitle(position));
             textView.setTag(position);
