@@ -1,0 +1,2 @@
+# FlycoTabLayoutZ
+在FlycoTabLayout的基础上，扩展出SlidingScaleTabLayout，实现滑动可以改变tab字体的大小的切换效果
