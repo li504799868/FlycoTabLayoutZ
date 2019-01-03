@@ -14,6 +14,7 @@
         app:tl_indicator_gravity="BOTTOM"
         app:tl_indicator_height="2dp"
         app:tl_indicator_width="7dp"
+        app:tl_textBold="SELECT"
 
         app:tl_tab_gravity="Bottom"
         app:tl_tab_marginBottom="8dp"

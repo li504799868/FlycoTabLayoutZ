@@ -369,6 +369,10 @@ public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.
 
                 if (mTextBold == TEXT_BOLD_BOTH) {
                     tv_tab_title.getPaint().setFakeBoldText(true);
+                }
+                // 被选中设置为粗体
+                else if (mTextBold == TEXT_BOLD_WHEN_SELECT && i == mCurrentTab) {
+                    tv_tab_title.getPaint().setFakeBoldText(true);
                 } else if (mTextBold == TEXT_BOLD_NONE) {
                     tv_tab_title.getPaint().setFakeBoldText(false);
                 }

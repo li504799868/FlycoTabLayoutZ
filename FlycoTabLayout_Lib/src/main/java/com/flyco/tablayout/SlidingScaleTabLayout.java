@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -373,6 +374,10 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 }
 
                 if (mTextBold == TEXT_BOLD_BOTH) {
+                    tv_tab_title.getPaint().setFakeBoldText(true);
+                }
+                // 被选中设置为粗体
+                else if (mTextBold == TEXT_BOLD_WHEN_SELECT && i == mCurrentTab) {
                     tv_tab_title.getPaint().setFakeBoldText(true);
                 } else if (mTextBold == TEXT_BOLD_NONE) {
                     tv_tab_title.getPaint().setFakeBoldText(false);
@@ -919,8 +924,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             position = mTabCount - 1;
         }
         View tabView = mTabsContainer.getChildAt(position);
-        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
-        return tipView;
+        return (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
     }
 
     /**
@@ -966,13 +970,13 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             // 覆写destroyItem并且空实现,这样每个Fragment中的视图就不会被销毁
             // super.destroyItem(container, position, object);
         }
 
         @Override
-        public int getItemPosition(Object object) {
+        public int getItemPosition(@NonNull Object object) {
             return PagerAdapter.POSITION_NONE;
         }
     }
