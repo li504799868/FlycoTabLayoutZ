@@ -34,6 +34,15 @@ SlidingScaleTabLayout继承SlidingTabLayout，支持SlidingScaleTabLayout的全�
     <attr name="tl_tab_marginBottom" />
     <attr name="tl_tab_gravity" />
     
+4、请务必重写PagerAdapter.getItemPosition()方法，根据object返回正确的位置信息，因为需要通过此方法找到对应位置的SlidingTab，进行文字样式切换：
+     
+     @Override
+    public int getItemPosition(@NonNull Object object) {
+        // PagerAdapter的默认实现，请返回正确的位置信息
+        return PagerAdapter.POSITION_NONE;
+    }
+
+    
 ## 示例
 
 xml:
@@ -65,6 +74,26 @@ Java:
     viewPager.setAdapter(new MyViewPagerAdapter());
     viewPager.setOffscreenPageLimit(4);
     tabLayout.setViewPager(viewPager);
+    
+    // PagerAdapter中的getItemPosition实现
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+         // 取出设置的tag，返回位置信息 
+         View view = (View) object;
+         return (int) view.getTag();
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        TextView textView = new TextView(SlidingScaleTabLayoutActivity.this);
+        textView.setBackgroundColor(colors[position]);
+        textView.setText(getPageTitle(position));
+        // 设置tag为position
+        textView.setTag(position);
+        container.addView(textView);
+        return textView;
+    }
     
 更多使用示例，请参考demo。
 <br/>
