@@ -39,6 +39,9 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
     @Override
     public void transformPage(@NonNull View view, float position) {
         TextView currentTab = slidingScaleTabLayout.getTitle(pagerAdapter.getItemPosition(view));
+        if (currentTab == null){
+            return;
+        }
         if (position >= -1 && position <= 1) { // [-1,1]
             currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * position));
         }

@@ -269,9 +269,16 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void initViewPagerListener() {
         this.mViewPager.removeOnPageChangeListener(this);
         this.mViewPager.addOnPageChangeListener(this);
-        defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize);
-        this.mViewPager.setPageTransformer(true, defaultTransformer);
+        initTransformer();
         notifyDataSetChanged();
+    }
+
+    private void initTransformer() {
+        // 如果选中状态的文字大小和未选中状态的文字大小是不同的，开启缩放
+        if (mTextUnSelectSize != mTextSelectSize) {
+            defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize);
+            this.mViewPager.setPageTransformer(true, defaultTransformer);
+        }
     }
 
     /**
@@ -702,11 +709,13 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
     public void setTextSelectsize(float textsize) {
         this.mTextSelectSize = sp2px(textsize);
+        initTransformer();
         updateTabStyles();
     }
 
     public void setTextUnselectSize(int textSize) {
         this.mTextUnSelectSize = textSize;
+        initTransformer();
         updateTabStyles();
     }
 
@@ -946,6 +955,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             position = mTabCount - 1;
         }
         View tabView = mTabsContainer.getChildAt(position);
+        if (tabView == null) {
+            return null;
+        }
         return (TextView) tabView.findViewById(R.id.tv_tab_title);
     }
 
