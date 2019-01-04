@@ -6,7 +6,7 @@
 https://github.com/H07000223/FlycoTabLayout
   
 ## 新增SlidingScaleTabLayout
-SlidingScaleTabLayout继承SlidingTabLayout，支持SlidingScaleTabLayout的全部特性。
+SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
 <br />
 <img src="https://img-blog.csdnimg.cn/20190103170923648.gif" />
 
