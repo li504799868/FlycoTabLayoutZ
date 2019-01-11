@@ -20,7 +20,7 @@
             android:paddingTop="5dp"
             tl:tl_indicator_color="#2C97DE"
             tl:tl_textSelectColor="#2C97DE"
-            tl:tl_textUnselectColor="#66000000"
+            tl:tl_textUnSelectColor="#66000000"
             tl:tl_underline_color="#DDDDDD"
             tl:tl_underline_height="1dp"/>
 
@@ -39,8 +39,8 @@
             tl:tl_indicator_color="#2C97DE"
             tl:tl_indicator_height="0dp"
             tl:tl_textSelectColor="#2C97DE"
-            tl:tl_textUnselectColor="#66000000"
-            tl:tl_textsize="12sp"
+            tl:tl_textUnSelectColor="#66000000"
+            tl:tl_textSize="12sp"
             tl:tl_underline_color="#DDDDDD"
             tl:tl_underline_height="1dp"/>
 
@@ -63,8 +63,8 @@
             tl:tl_indicator_color="#2C97DE"
             tl:tl_indicator_gravity="TOP"
             tl:tl_textSelectColor="#2C97DE"
-            tl:tl_textUnselectColor="#66000000"
-            tl:tl_textsize="15sp"
+            tl:tl_textUnSelectColor="#66000000"
+            tl:tl_textSize="15sp"
             tl:tl_underline_color="#DDDDDD"
             tl:tl_underline_gravity="TOP"
             tl:tl_underline_height="1dp"/>
@@ -77,7 +77,7 @@
             tl:tl_iconVisible="false"
             tl:tl_textBold="SELECT"
             tl:tl_indicator_width="10dp"
-            tl:tl_textsize="14sp"/>
+            tl:tl_textSize="14sp"/>
 
         <com.flyco.tablayout.CommonTabLayout
             tl:tl_textBold="BOTH"
@@ -89,7 +89,7 @@
             tl:tl_indicator_corner_radius="2dp"
             tl:tl_indicator_height="4dp"
             tl:tl_indicator_width="4dp"
-            tl:tl_textsize="14sp"/>
+            tl:tl_textSize="14sp"/>
 
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/tl_6"
@@ -100,7 +100,7 @@
             tl:tl_indicator_corner_radius="1.5dp"
             tl:tl_indicator_height="3dp"
             tl:tl_indicator_width="10dp"
-            tl:tl_textsize="14sp"/>
+            tl:tl_textSize="14sp"/>
 
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/tl_7"
@@ -113,7 +113,7 @@
             tl:tl_indicator_height="3dp"
             tl:tl_indicator_style="TRIANGLE"
             tl:tl_indicator_width="10dp"
-            tl:tl_textsize="14sp"/>
+            tl:tl_textSize="14sp"/>
 
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/tl_8"
@@ -126,6 +126,6 @@
             tl:tl_indicator_margin_left="5dp"
             tl:tl_indicator_margin_right="5dp"
             tl:tl_indicator_style="BLOCK"
-            tl:tl_textsize="14sp"/>
+            tl:tl_textSize="14sp"/>
     </LinearLayout>
 </ScrollView>

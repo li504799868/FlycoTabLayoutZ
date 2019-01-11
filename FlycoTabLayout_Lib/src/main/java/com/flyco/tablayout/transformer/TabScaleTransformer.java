@@ -37,14 +37,22 @@ public class TabScaleTransformer implements ViewPager.PageTransformer {
     }
 
     @Override
-    public void transformPage(@NonNull View view, float position) {
-        TextView currentTab = slidingScaleTabLayout.getTitle(pagerAdapter.getItemPosition(view));
-        if (currentTab == null){
+    public void transformPage(@NonNull View view, final float position) {
+        final TextView currentTab = slidingScaleTabLayout.getTitle(pagerAdapter.getItemPosition(view));
+        if (currentTab == null) {
             return;
         }
-        if (position >= -1 && position <= 1) { // [-1,1]
-            currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * position));
-        }
+        // 必须要在View调用post更新样式，否则可能无效
+        currentTab.post(new Runnable() {
+            @Override
+            public void run() {
+                if (position >= -1 && position <= 1) { // [-1,1]
+                    currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * position));
+                } else {
+                    currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textUnSelectSize);
+                }
+            }
+        });
         // 回调设置的页面切换效果设置
         if (transformers != null && transformers.size() > 0) {
             for (IViewPagerTransformer transformer : transformers) {

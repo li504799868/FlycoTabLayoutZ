@@ -30,6 +30,7 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
         viewPager.setAdapter(new MyViewPagerAdapter());
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
+        viewPager.setCurrentItem(3);
     }
 
     class MyViewPagerAdapter extends PagerAdapter {
@@ -48,7 +49,7 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "标题" + position;
+            return "标题位置" + position;
         }
 
         @Override

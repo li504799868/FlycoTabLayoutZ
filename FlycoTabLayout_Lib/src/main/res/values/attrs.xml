@@ -124,9 +124,9 @@
 
         <!-- title -->
         <attr name="tl_textSelectSize" />
-        <attr name="tl_textUnselectSize" />
+        <attr name="tl_textUnSelectSize" />
         <attr name="tl_textSelectColor" />
-        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textUnSelectColor" />
         <attr name="tl_textBold" />
         <attr name="tl_textAllCaps" />
 
@@ -164,9 +164,9 @@
         <attr name="tl_tab_width" />
 
         <!-- title -->
-        <attr name="tl_textsize" />
+        <attr name="tl_textSize" />
         <attr name="tl_textSelectColor" />
-        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textUnSelectColor" />
         <attr name="tl_textBold" />
         <attr name="tl_textAllCaps" />
 
@@ -213,9 +213,9 @@
         <attr name="tl_tab_width" />
 
         <!-- title -->
-        <attr name="tl_textsize" />
+        <attr name="tl_textSize" />
         <attr name="tl_textSelectColor" />
-        <attr name="tl_textUnselectColor" />
+        <attr name="tl_textUnSelectColor" />
         <attr name="tl_textBold" />
         <attr name="tl_textAllCaps" />
 
