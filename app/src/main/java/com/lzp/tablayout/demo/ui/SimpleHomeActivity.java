@@ -14,9 +14,14 @@ import com.lzp.tablayout.demo.adapter.SimpleHomeAdapter;
 
 public class SimpleHomeActivity extends AppCompatActivity {
     private Context mContext = this;
-    private final String[] mItems = {"SlidingTabLayout", "CommonTabLayout", "SegmentTabLayout", "SlidingScaleTabLayout(new)"};
-    private final Class<?>[] mClasses = {SlidingTabActivity.class, CommonTabActivity.class,
-            SegmentTabActivity.class, SlidingScaleTabLayoutActivity.class};
+    private final String[] mItems = {
+            "SlidingTabLayout", "CommonTabLayout",
+            "SegmentTabLayout", "SlidingScaleTabLayout(new)",
+            "SlidingScaleTabLayoutFragmentActivity(new)"};
+    private final Class<?>[] mClasses = {
+            SlidingTabActivity.class, CommonTabActivity.class,
+            SegmentTabActivity.class, SlidingScaleTabLayoutActivity.class,
+            SlidingScaleTabLayoutFragmentActivity.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
