@@ -22,6 +22,8 @@ import com.lzp.tablayout.demo.R;
  */
 public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
 
+    private String[] titles = {"首页", "话题", "私信", "我的"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Tab" + position;
+            return titles[position];
         }
 
         @Override
