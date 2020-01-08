@@ -265,6 +265,9 @@
         <attr name="tl_textBold" />
         <attr name="tl_textAllCaps" />
 
+        <!-- 是否开启文字的图片镜像 -->
+        <attr name="tl_openTextDmg" format="boolean"/>
+
     </declare-styleable>
 
     <declare-styleable name="MsgView">

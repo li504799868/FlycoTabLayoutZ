@@ -21,9 +21,11 @@ import android.util.AttributeSet;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.flyco.tablayout.transformer.IViewPagerTransformer;
 import com.flyco.tablayout.transformer.TabScaleTransformer;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
+import com.flyco.tablayout.utils.ViewUtils;
 import com.flyco.tablayout.widget.MsgView;
 
 import java.util.ArrayList;
@@ -128,6 +131,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private int mTabMarginTop;
     private int mTabMarginBottom;
 
+    private boolean openDmg = true;
+
     /**
      * tab摆放的位置，目前只支持top和bottom
      */
@@ -209,7 +214,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         mTabMarginTop = ta.getDimensionPixelSize(R.styleable.SlidingScaleTabLayout_tl_tab_marginTop, 0);
         mTabMarginBottom = ta.getDimensionPixelSize(R.styleable.SlidingScaleTabLayout_tl_tab_marginBottom, 0);
         mTabGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_gravity, CENTER);
-
+        openDmg = ta.getBoolean(R.styleable.SlidingScaleTabLayout_tl_openTextDmg, false);
         ta.recycle();
     }
 
@@ -276,7 +281,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void initTransformer() {
         // 如果选中状态的文字大小和未选中状态的文字大小是不同的，开启缩放
         if (mTextUnSelectSize != mTextSelectSize) {
-            defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize);
+            defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize, isDmgOpen());
             this.mViewPager.setPageTransformer(true, defaultTransformer);
         }
     }
@@ -289,7 +294,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
         View tabView;
         for (int i = 0; i < mTabCount; i++) {
-            tabView = View.inflate(mContext, R.layout.layout_tab, null);
+            tabView = LayoutInflater.from(mContext).inflate(R.layout.layout_scale_tab, this, false);
             TextView title = tabView.findViewById(R.id.tv_tab_title);
             // 设置tab的位置信息
             setTabLayoutParams(title);
@@ -312,10 +317,34 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             params.addRule(RelativeLayout.CENTER_VERTICAL);
         }
         title.setLayoutParams(params);
+
+        if (isDmgOpen()) {
+            ImageView imageView = (ImageView) ViewUtils.findBrotherView(title, R.id.tv_tav_title_dmg, 3);
+            if (imageView == null) return;
+            params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            params.topMargin = mTabMarginTop;
+            params.bottomMargin = mTabMarginBottom;
+            if (mTabGravity == TOP) {
+                params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+            } else if (mTabGravity == BOTTOM) {
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            } else {
+                params.addRule(RelativeLayout.CENTER_VERTICAL);
+            }
+            imageView.setLayoutParams(params);
+        }
+
+    }
+
+    /**
+     * 如果文字的大小没有变化，不需要开启镜像，请注意
+     * */
+    private boolean isDmgOpen() {
+        return openDmg && mTextSelectSize != mTextUnSelectSize;
     }
 
     public void addNewTab(String title) {
-        View tabView = View.inflate(mContext, R.layout.layout_tab, null);
+        View tabView = View.inflate(mContext, R.layout.layout_scale_tab, null);
         if (mTitles != null) {
             mTitles.add(title);
         }
@@ -392,8 +421,22 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 } else if (mTextBold == TEXT_BOLD_NONE) {
                     tv_tab_title.getPaint().setFakeBoldText(false);
                 }
+
+                if (isDmgOpen()) {
+                    generateTitleDmg(v, tv_tab_title);
+                }
             }
         }
+
+    }
+
+    private void generateTitleDmg(View tabView, TextView textView) {
+        // 如果需要开启镜像，需要把所有的字设置为选中的字体
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Math.max(mTextSelectSize, mTextUnSelectSize));
+        ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
+        imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
+        imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
+        textView.setVisibility(View.GONE);
     }
 
     @Override
@@ -454,9 +497,20 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
             if (tab_title != null) {
                 tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnSelectColor);
-                if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
-                    tab_title.getPaint().setFakeBoldText(isSelect);
+                if (mTextBold == TEXT_BOLD_BOTH) {
+                    tab_title.getPaint().setFakeBoldText(true);
                 }
+                // 被选中设置为粗体
+                else if (mTextBold == TEXT_BOLD_WHEN_SELECT && i == position) {
+                    tab_title.getPaint().setFakeBoldText(true);
+                } else {
+                    tab_title.getPaint().setFakeBoldText(false);
+                }
+            }
+
+            if (isDmgOpen()) {
+                tab_title.setVisibility(View.VISIBLE);
+                generateTitleDmg(tabView, tab_title);
             }
         }
     }
@@ -925,10 +979,13 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         View tabView = mTabsContainer.getChildAt(position);
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
-            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-            mTextPaint.setTextSize(position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
-            float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
-            float textHeight = mTextPaint.descent() - mTextPaint.ascent();
+//            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+//            mTextPaint.setTextSize(position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
+            ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
+//            float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
+            float textWidth = imageView.getWidth();
+//            float textHeight = mTextPaint.descent() - mTextPaint.ascent();
+            float textHeight = imageView.getHeight();
             MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
             lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPadding + textWidth + dp2px(leftPadding));
             lp.topMargin = mHeight > 0 ? (int) (mHeight - textHeight) / 2 - dp2px(bottomPadding) : 0;
