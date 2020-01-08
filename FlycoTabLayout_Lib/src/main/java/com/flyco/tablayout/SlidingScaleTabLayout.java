@@ -338,7 +338,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
     /**
      * 如果文字的大小没有变化，不需要开启镜像，请注意
-     * */
+     */
     private boolean isDmgOpen() {
         return openDmg && mTextSelectSize != mTextUnSelectSize;
     }
@@ -506,11 +506,10 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 } else {
                     tab_title.getPaint().setFakeBoldText(false);
                 }
-            }
-
-            if (isDmgOpen()) {
-                tab_title.setVisibility(View.VISIBLE);
-                generateTitleDmg(tabView, tab_title);
+                if (isDmgOpen() && (mTextSelectColor != mTextUnSelectColor || mTextBold == TEXT_BOLD_WHEN_SELECT)) {
+                    tab_title.setVisibility(View.VISIBLE);
+                    generateTitleDmg(tabView, tab_title);
+                }
             }
         }
     }
