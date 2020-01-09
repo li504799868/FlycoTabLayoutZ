@@ -18,7 +18,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
 
 <br />
 
-    compile 'com.lzp:FlycoTabLayoutZ:1.0.4'
+    compile 'com.lzp:FlycoTabLayoutZ:last-version'
     
     
 2、新增设置tab被选中以及未被选中的文字大小，大小的变化会在ViewPager滑动的时候自动变化：
