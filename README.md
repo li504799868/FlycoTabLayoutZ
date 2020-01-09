@@ -41,6 +41,17 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
         // PagerAdapter的默认实现，请返回正确的位置信息
         return PagerAdapter.POSITION_NONE;
     }
+    
+1.1.1新增
+  
+  新增自定义属性，解决SlidingScaleTabLayou文字变化抖动的问题：
+  
+   <!-- 是否开启文字的图片镜像 -->
+   <attr name="tl_openTextDmg" format="boolean"/>
+   
+   请注意：如果设置tl_openTextDmg为true，但是tl_textSelectSize与tl_textUnSelectSize相等，同样不会开启图片副本；
+   
+   具体原因以及解决方案请查看：https://blog.csdn.net/u011315960/article/details/103902279
 
     
 ## 示例
