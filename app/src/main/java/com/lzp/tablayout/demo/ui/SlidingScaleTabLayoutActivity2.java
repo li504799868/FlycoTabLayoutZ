@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingScaleTabLayout;
@@ -37,6 +38,16 @@ public class SlidingScaleTabLayoutActivity2 extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(3);
+
+        tabLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // 监听测量完成
+                showTitleLeftDrawable();
+                tabLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
