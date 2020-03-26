@@ -324,12 +324,16 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
             params.topMargin = mTabMarginTop;
             params.bottomMargin = mTabMarginBottom;
+            // 调整镜像的问题
             if (mTabGravity == TOP) {
                 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                imageView.setScaleType(ImageView.ScaleType.FIT_START);
             } else if (mTabGravity == BOTTOM) {
                 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                imageView.setScaleType(ImageView.ScaleType.FIT_END);
             } else {
                 params.addRule(RelativeLayout.CENTER_VERTICAL);
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             }
             imageView.setLayoutParams(params);
         }
