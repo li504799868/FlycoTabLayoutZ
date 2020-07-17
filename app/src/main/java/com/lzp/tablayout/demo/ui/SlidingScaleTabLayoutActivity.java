@@ -40,12 +40,6 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
             return 4;
         }
 
-        @Override
-        public int getItemPosition(@NonNull Object object) {
-            View view = (View) object;
-            return (int) view.getTag();
-        }
-
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
@@ -63,7 +57,6 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
             TextView textView = new TextView(SlidingScaleTabLayoutActivity.this);
             textView.setBackgroundColor(colors[position]);
             textView.setText(getPageTitle(position));
-            textView.setTag(position);
             container.addView(textView);
             return textView;
         }

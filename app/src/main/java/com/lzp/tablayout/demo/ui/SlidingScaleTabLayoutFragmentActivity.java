@@ -48,12 +48,6 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
             return 4;
         }
 
-        @Override
-        public int getItemPosition(@NonNull Object object) {
-            View view = (View) object;
-            return (int) view.getTag();
-        }
-
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
@@ -62,7 +56,7 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int i) {
-            return SimpleCardFragment.getInstance("这是第" + i + "个Fragment", i);
+            return SimpleCardFragment.getInstance("这是第" + i + "个Fragment");
         }
     }
 
