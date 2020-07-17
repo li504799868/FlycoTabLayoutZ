@@ -46,7 +46,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
    <b>强烈推荐升级到1.2.1版本</b>
     
     
-### 1.1.1新增
+### 1.1.1 新增
   
   新增自定义属性:是否开启文字的图片镜像 ，解决SlidingScaleTabLayou文字变化抖动的问题：
   <br />
@@ -57,7 +57,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
    
    具体原因以及解决方案请查看：https://blog.csdn.net/u011315960/article/details/103902279
    
-### 1.2.1
+### 1.2.1 新增
 
   删除自定义属性：
     
