@@ -65,7 +65,7 @@
     <attr name="tl_tab_marginTop" format="dimension" />
     <attr name="tl_tab_marginBottom" format="dimension" />
 
-    <!-- tab的水平位置 -->
+    <!-- tab的竖直位置 -->
     <attr name="tl_tab_vertical_gravity" format="enum">
         <enum name="Top" value="0" />
         <enum name="Bottom" value="1" />
