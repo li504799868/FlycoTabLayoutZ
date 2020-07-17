@@ -14,12 +14,13 @@
         app:tl_indicator_gravity="BOTTOM"
         app:tl_indicator_height="2dp"
         app:tl_indicator_width="7dp"
-        app:tl_textBold="SELECT"
         app:tl_openTextDmg="true"
+        app:tl_tab_horizontal_gravity="Left"
 
-        app:tl_tab_gravity="Bottom"
         app:tl_tab_marginBottom="8dp"
         app:tl_tab_padding="15dp"
+        app:tl_tab_vertical_gravity="Bottom"
+        app:tl_textBold="SELECT"
 
         app:tl_textSelectColor="@color/colorAccent"
         app:tl_textSelectSize="20sp"

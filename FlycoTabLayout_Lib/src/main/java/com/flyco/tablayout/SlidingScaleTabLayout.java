@@ -51,6 +51,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private static final int TOP = 0;
     private static final int BOTTOM = 1;
     private static final int CENTER = 2;
+    private static final int LEFT = 0;
+    private static final int RIGHT = 1;
 
     private Context mContext;
     private ViewPager mViewPager;
@@ -136,9 +138,11 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private boolean openDmg = true;
 
     /**
-     * tab摆放的位置，目前只支持top和bottom
+     * tab中的内容的位置
      */
-    private int mTabGravity;
+    private int mTabHorizontalGravity;
+
+    private int mTabVerticalGravity;
 
     private ITabScaleTransformer iTabScaleTransformer;
 
@@ -217,7 +221,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         // 得到设置的上下间距和gravity
         mTabMarginTop = ta.getDimensionPixelSize(R.styleable.SlidingScaleTabLayout_tl_tab_marginTop, 0);
         mTabMarginBottom = ta.getDimensionPixelSize(R.styleable.SlidingScaleTabLayout_tl_tab_marginBottom, 0);
-        mTabGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_gravity, CENTER);
+
+        mTabHorizontalGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_horizontal_gravity, CENTER);
+        mTabVerticalGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_vertical_gravity, CENTER);
         openDmg = ta.getBoolean(R.styleable.SlidingScaleTabLayout_tl_openTextDmg, false);
         ta.recycle();
 
@@ -315,13 +321,24 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) title.getLayoutParams();
         params.topMargin = mTabMarginTop;
         params.bottomMargin = mTabMarginBottom;
-        if (mTabGravity == TOP) {
+
+        if (mTabVerticalGravity == TOP) {
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        } else if (mTabGravity == BOTTOM) {
+        } else if (mTabVerticalGravity == BOTTOM) {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         } else {
             params.addRule(RelativeLayout.CENTER_VERTICAL);
         }
+
+        if (mTabHorizontalGravity == LEFT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else if (mTabHorizontalGravity == RIGHT) {
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        } else {
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        }
+
+
         title.setLayoutParams(params);
 
         if (isDmgOpen()) {
@@ -331,16 +348,25 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             params.topMargin = mTabMarginTop;
             params.bottomMargin = mTabMarginBottom;
             // 调整镜像的问题
-            if (mTabGravity == TOP) {
+            if (mTabVerticalGravity == TOP) {
                 params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 imageView.setScaleType(ImageView.ScaleType.FIT_START);
-            } else if (mTabGravity == BOTTOM) {
+            } else if (mTabVerticalGravity == BOTTOM) {
                 params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
                 imageView.setScaleType(ImageView.ScaleType.FIT_END);
             } else {
                 params.addRule(RelativeLayout.CENTER_VERTICAL);
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             }
+
+            if (mTabHorizontalGravity == LEFT) {
+                params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            } else if (mTabHorizontalGravity == RIGHT) {
+                params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            } else {
+                params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            }
+
             imageView.setLayoutParams(params);
         }
 

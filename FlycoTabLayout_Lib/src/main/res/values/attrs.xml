@@ -65,10 +65,17 @@
     <attr name="tl_tab_marginTop" format="dimension" />
     <attr name="tl_tab_marginBottom" format="dimension" />
 
-    <!-- tab的位置 -->
-    <attr name="tl_tab_gravity" format="enum">
+    <!-- tab的水平位置 -->
+    <attr name="tl_tab_vertical_gravity" format="enum">
         <enum name="Top" value="0" />
         <enum name="Bottom" value="1" />
+        <enum name="Center" value="2" />
+    </attr>
+
+    <!-- tab的水平位置 -->
+    <attr name="tl_tab_horizontal_gravity" format="enum">
+        <enum name="Left" value="0" />
+        <enum name="Right" value="1" />
         <enum name="Center" value="2" />
     </attr>
 
@@ -255,7 +262,8 @@
         <attr name="tl_tab_width" />
         <attr name="tl_tab_marginTop" />
         <attr name="tl_tab_marginBottom" />
-        <attr name="tl_tab_gravity" />
+        <attr name="tl_tab_horizontal_gravity" />
+        <attr name="tl_tab_vertical_gravity" />
 
         <!-- title -->
         <attr name="tl_textSelectSize" />
@@ -266,7 +274,7 @@
         <attr name="tl_textAllCaps" />
 
         <!-- 是否开启文字的图片镜像 -->
-        <attr name="tl_openTextDmg" format="boolean"/>
+        <attr name="tl_openTextDmg" format="boolean" />
 
     </declare-styleable>
 
