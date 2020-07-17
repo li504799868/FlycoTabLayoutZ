@@ -31,6 +31,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.flyco.tablayout.transformer.ExtendTransformer;
+import com.flyco.tablayout.transformer.ITabScaleTransformer;
 import com.flyco.tablayout.transformer.IViewPagerTransformer;
 import com.flyco.tablayout.transformer.TabScaleTransformer;
 import com.flyco.tablayout.utils.UnreadMsgUtils;
@@ -138,7 +140,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
      */
     private int mTabGravity;
 
-    private TabScaleTransformer defaultTransformer;
+    private ITabScaleTransformer iTabScaleTransformer;
+
+    private ExtendTransformer extendTransformer;
 
     public SlidingScaleTabLayout(Context context) {
         this(context, null, 0);
@@ -216,6 +220,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         mTabGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_gravity, CENTER);
         openDmg = ta.getBoolean(R.styleable.SlidingScaleTabLayout_tl_openTextDmg, false);
         ta.recycle();
+
+        iTabScaleTransformer = new TabScaleTransformer(this, mTextSelectSize, mTextUnSelectSize, openDmg);
     }
 
     /**
@@ -281,8 +287,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void initTransformer() {
         // 如果选中状态的文字大小和未选中状态的文字大小是不同的，开启缩放
         if (mTextUnSelectSize != mTextSelectSize) {
-            defaultTransformer = new TabScaleTransformer(this, mViewPager.getAdapter(), mTextSelectSize, mTextUnSelectSize, isDmgOpen());
-            this.mViewPager.setPageTransformer(true, defaultTransformer);
+            extendTransformer = new ExtendTransformer();
+            this.mViewPager.setPageTransformer(true, extendTransformer);
         }
     }
 
@@ -410,8 +416,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 //            v.setPadding((int) mTabPadding, v.getPaddingTop(), (int) mTabPadding, v.getPaddingBottom());
             TextView tv_tab_title = (TextView) v.findViewById(R.id.tv_tab_title);
             if (tv_tab_title != null) {
+                v.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
+                tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
                 tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnSelectColor);
-                tv_tab_title.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
                 if (mTextAllCaps) {
                     tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
                 }
@@ -420,8 +427,8 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                     tv_tab_title.getPaint().setFakeBoldText(true);
                 }
                 // 被选中设置为粗体
-                else if (mTextBold == TEXT_BOLD_WHEN_SELECT && i == mCurrentTab) {
-                    tv_tab_title.getPaint().setFakeBoldText(true);
+                else if (mTextBold == TEXT_BOLD_WHEN_SELECT) {
+                    tv_tab_title.getPaint().setFakeBoldText(i == mCurrentTab);
                 } else if (mTextBold == TEXT_BOLD_NONE) {
                     tv_tab_title.getPaint().setFakeBoldText(false);
                 }
@@ -436,10 +443,11 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
     private void generateTitleDmg(View tabView, TextView textView) {
         // 如果需要开启镜像，需要把所有的字设置为选中的字体
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, Math.max(mTextSelectSize, mTextUnSelectSize));
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
         ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
         imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
         imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
+        iTabScaleTransformer.setNormalWidth(imageView.getDrawable().getIntrinsicWidth());
         textView.setVisibility(View.GONE);
     }
 
@@ -451,13 +459,18 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
          */
         this.mCurrentTab = position;
         this.mCurrentPositionOffset = positionOffset;
+        iTabScaleTransformer.onPageScrolled(position, positionOffset, positionOffsetPixels);
         scrollToCurrentTab();
         invalidate();
+
+        if (this.mCurrentPositionOffset == 0) {
+            updateTabSelection(mCurrentTab);
+        }
     }
 
     @Override
     public void onPageSelected(int position) {
-        updateTabSelection(position);
+
     }
 
     @Override
@@ -901,12 +914,20 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         return mTextAllCaps;
     }
 
+    public void addViewPagerTransformer(IViewPagerTransformer transformer) {
+        this.extendTransformer.addViewPagerTransformer(transformer);
+    }
+
+    public void removeViewPagerTransformer(IViewPagerTransformer transformer) {
+        this.extendTransformer.removeViewPagerTransformer(transformer);
+    }
+
     public List<IViewPagerTransformer> getTransformers() {
-        return defaultTransformer.getTransformers();
+        return extendTransformer.getTransformers();
     }
 
     public void setTransformers(List<IViewPagerTransformer> transformers) {
-        this.defaultTransformer.setTransformers(transformers);
+        this.extendTransformer.setTransformers(transformers);
     }
 
     public TextView getTitleView(int tab) {
