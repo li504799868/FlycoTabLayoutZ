@@ -17,11 +17,13 @@ public class SimpleHomeActivity extends AppCompatActivity {
     private final String[] mItems = {
             "SlidingTabLayout", "CommonTabLayout",
             "SegmentTabLayout", "SlidingScaleTabLayout(new)",
-            "SlidingScaleTabLayoutFragmentActivity(new)"};
+            "SlidingScaleTabLayoutFragmentActivity(new)",
+            "SlidingScaleTabLayoutFragmentActivity(2)"};
     private final Class<?>[] mClasses = {
             SlidingTabActivity.class, CommonTabActivity.class,
             SegmentTabActivity.class, SlidingScaleTabLayoutActivity.class,
-            SlidingScaleTabLayoutFragmentActivity.class};
+            SlidingScaleTabLayoutFragmentActivity.class,
+            SlidingScaleTabLayoutActivity2.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

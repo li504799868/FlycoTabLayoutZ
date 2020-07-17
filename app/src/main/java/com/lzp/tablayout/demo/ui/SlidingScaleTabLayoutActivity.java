@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingScaleTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lzp.tablayout.demo.R;
 
 public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
@@ -20,13 +21,17 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
             Color.BLACK, Color.BLUE, Color.CYAN, Color.RED
     };
 
+    private SlidingScaleTabLayout tabLayout;
+
+    private ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SlidingScaleTabLayout tabLayout = findViewById(R.id.tablayout);
-        ViewPager viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tablayout);
+        viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyViewPagerAdapter());
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
