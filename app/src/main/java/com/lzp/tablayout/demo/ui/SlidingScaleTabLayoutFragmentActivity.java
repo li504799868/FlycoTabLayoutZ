@@ -22,7 +22,7 @@ import com.lzp.tablayout.demo.R;
  */
 public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
 
-    private String[] titles = {"首页", "话题", "私信", "我的"};
+    private String[] titles = {"Activity", "Likes", "Followers", "Mine"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

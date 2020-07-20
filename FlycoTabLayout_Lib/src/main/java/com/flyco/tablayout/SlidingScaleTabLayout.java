@@ -460,20 +460,20 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 }
 
                 if (isDmgOpen()) {
-                    generateTitleDmg(v, tv_tab_title);
+                    generateTitleDmg(v, tv_tab_title, i);
                 }
             }
         }
 
     }
 
-    private void generateTitleDmg(View tabView, TextView textView) {
+    private void generateTitleDmg(View tabView, TextView textView, int position) {
         // 如果需要开启镜像，需要把所有的字设置为选中的字体
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
         ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
         imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
         imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
-        iTabScaleTransformer.setNormalWidth(imageView.getDrawable().getIntrinsicWidth());
+//        iTabScaleTransformer.setNormalWidth(position, imageView.getDrawable().getIntrinsicWidth(), position == mViewPager.getCurrentItem());
         textView.setVisibility(View.GONE);
     }
 
@@ -501,6 +501,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
     @Override
     public void onPageScrollStateChanged(int state) {
+//        if (state == ViewPager.SCROLL_STATE_IDLE) {
+//            updateTabSelection(mCurrentTab);
+//        }
     }
 
     /**
@@ -551,7 +554,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 }
                 if (isDmgOpen() && (mTextSelectColor != mTextUnSelectColor || mTextBold == TEXT_BOLD_WHEN_SELECT)) {
                     tab_title.setVisibility(View.VISIBLE);
-                    generateTitleDmg(tabView, tab_title);
+                    generateTitleDmg(tabView, tab_title, i);
+                } else {
+                    tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
                 }
             }
         }
