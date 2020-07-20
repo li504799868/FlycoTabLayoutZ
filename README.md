@@ -34,7 +34,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     <attr name="tl_tab_marginBottom" />
     <attr name="tl_tab_gravity" />
     
-4、请务必重写PagerAdapter.getItemPosition()方法，根据object返回正确的位置信息，因为需要通过此方法找到对应位置的SlidingTab，进行文字样式切换：
+4、如果你使用的是1.2.1之前的版本，请务必重写PagerAdapter.getItemPosition()方法，根据object返回正确的位置信息，因为需要通过此方法找到对应位置的SlidingTab，进行文字样式切换：
      
      @Override
     public int getItemPosition(@NonNull Object object) {
@@ -42,7 +42,11 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
         return PagerAdapter.POSITION_NONE;
     }
     
-1.1.1新增
+   
+   <b>强烈推荐升级到1.2.1版本</b>
+    
+    
+### 1.1.1 新增
   
   新增自定义属性:是否开启文字的图片镜像 ，解决SlidingScaleTabLayou文字变化抖动的问题：
   <br />
@@ -52,6 +56,30 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
    请注意：如果设置tl_openTextDmg为true，但是tl_textSelectSize与tl_textUnSelectSize相等，同样不会开启图片副本；
    
    具体原因以及解决方案请查看：https://blog.csdn.net/u011315960/article/details/103902279
+   
+### 1.2.1 新增
+
+  删除自定义属性：
+    
+    <attr name="tl_tab_gravity" />
+  
+  新增自定义属性：
+  
+  <!-- tab的竖直位置 -->
+    <attr name="tl_tab_vertical_gravity" format="enum">
+        <enum name="Top" value="0" />
+        <enum name="Bottom" value="1" />
+        <enum name="Center" value="2" />
+    </attr>
+
+    <!-- tab的水平位置 -->
+    <attr name="tl_tab_horizontal_gravity" format="enum">
+        <enum name="Left" value="0" />
+        <enum name="Right" value="1" />
+        <enum name="Center" value="2" />
+    </attr>
+    
+  设置tab内容的位置，可以改变缩放效果的锚点。默认都为Center，居中显示。
 
     
 ## 示例
@@ -87,12 +115,13 @@ Java:
     tabLayout.setViewPager(viewPager);
     
     // PagerAdapter中的getItemPosition实现
-    @Override
-    public int getItemPosition(@NonNull Object object) {
+    // 1.2.1 版本后不再需要实现
+    //@Override
+    //public int getItemPosition(@NonNull Object object) {
          // 取出设置的tag，返回位置信息 
-         View view = (View) object;
-         return (int) view.getTag();
-    }
+         //View view = (View) object;
+         //return (int) view.getTag();
+    //}
 
     @NonNull
     @Override
@@ -101,7 +130,8 @@ Java:
         textView.setBackgroundColor(colors[position]);
         textView.setText(getPageTitle(position));
         // 设置tag为position
-        textView.setTag(position);
+        // 1.2.1 版本后不再需要setTag
+        //textView.setTag(position);
         container.addView(textView);
         return textView;
     }
