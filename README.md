@@ -43,7 +43,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     }
     
    
-   <b>强烈推荐升级到1.2.1版本</b>
+   <b>强烈推荐升级到1.2.1及以上版本</b>
     
     
 ### 1.1.1 新增
