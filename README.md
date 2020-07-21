@@ -81,7 +81,21 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
   设置tab内容的位置，可以改变缩放效果的锚点。默认都为Center，居中显示。
 
-    
+### 1.2.3 新增
+  
+  修复红点消息显示位置不正确的问题，新增自定义属性：
+
+    <!-- 未读消息的位置 -->
+    <attr name="tl_tab_msg_marginTop" />
+    <attr name="tl_tab_msg_marginRight" />
+
+    <!-- 红点的位置 -->
+    <attr name="tl_tab_dot_marginTop" />
+    <attr name="tl_tab_dot_marginRight" />
+
+    默认为标题文字的右上角。
+
+
 ## 示例
 
 xml:
