@@ -65,6 +65,19 @@
     <attr name="tl_tab_marginTop" format="dimension" />
     <attr name="tl_tab_marginBottom" format="dimension" />
 
+    <attr name="tl_tab_msg_marginTop" format="dimension" />
+    <attr name="tl_tab_msg_marginRight" format="dimension" />
+
+    <attr name="tl_tab_dot_marginTop" format="dimension" />
+    <attr name="tl_tab_dot_marginRight" format="dimension" />
+
+    <!-- tab的位置 -->
+    <attr name="tl_tab_gravity" format="enum">
+        <enum name="Top" value="0" />
+        <enum name="Bottom" value="1" />
+        <enum name="Center" value="2" />
+    </attr>
+
     <!-- tab的竖直位置 -->
     <attr name="tl_tab_vertical_gravity" format="enum">
         <enum name="Top" value="0" />
@@ -275,6 +288,14 @@
 
         <!-- 是否开启文字的图片镜像 -->
         <attr name="tl_openTextDmg" format="boolean" />
+
+        <!-- 未读消息的位置 -->
+        <attr name="tl_tab_msg_marginTop" />
+        <attr name="tl_tab_msg_marginRight" />
+
+        <!-- 红点的位置 -->
+        <attr name="tl_tab_dot_marginTop" />
+        <attr name="tl_tab_dot_marginRight" />
 
     </declare-styleable>
 

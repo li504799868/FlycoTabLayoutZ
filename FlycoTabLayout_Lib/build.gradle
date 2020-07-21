@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
-version = "1.2.2"
+version = "1.2.3"
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"

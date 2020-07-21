@@ -36,6 +36,9 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(4);
         tabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(2);
+
+        tabLayout.showDot(2);
+        tabLayout.showMsg(0, 99);
     }
 
     class MyViewPagerAdapter extends PagerAdapter {

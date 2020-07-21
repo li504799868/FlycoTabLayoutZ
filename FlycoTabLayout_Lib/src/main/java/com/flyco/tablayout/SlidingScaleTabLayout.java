@@ -135,6 +135,11 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private int mTabMarginTop;
     private int mTabMarginBottom;
 
+    private int mTabMsgMarginTop;
+    private int mTabMsgMarginRight;
+    private int mTabDotMarginTop;
+    private int mTabDotMarginRight;
+
     private boolean openDmg = true;
 
     /**
@@ -224,6 +229,13 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
         mTabHorizontalGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_horizontal_gravity, CENTER);
         mTabVerticalGravity = ta.getInt(R.styleable.SlidingScaleTabLayout_tl_tab_vertical_gravity, CENTER);
+
+        mTabMsgMarginTop = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_msg_marginTop, 0f);
+        mTabMsgMarginRight = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_msg_marginRight, 0f);
+
+        mTabDotMarginTop = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_dot_marginTop, 0f);
+        mTabDotMarginRight = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_dot_marginRight, 0f);
+
         openDmg = ta.getBoolean(R.styleable.SlidingScaleTabLayout_tl_openTextDmg, false);
         ta.recycle();
 
@@ -306,7 +318,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
         View tabView;
         for (int i = 0; i < mTabCount; i++) {
-            tabView = LayoutInflater.from(mContext).inflate(R.layout.layout_scale_tab, this, false);
+            tabView = LayoutInflater.from(mContext).inflate(R.layout.layout_scale_tab, mTabsContainer, false);
             TextView title = tabView.findViewById(R.id.tv_tab_title);
             // 设置tab的位置信息
             setTabLayoutParams(title);
@@ -342,7 +354,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         title.setLayoutParams(params);
 
         if (isDmgOpen()) {
-            ImageView imageView = (ImageView) ViewUtils.findBrotherView(title, R.id.tv_tav_title_dmg, 3);
+            ImageView imageView = (ImageView) ViewUtils.findBrotherView(title, R.id.tv_tab_title_dmg, 3);
             if (imageView == null) return;
             params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
             params.topMargin = mTabMarginTop;
@@ -377,19 +389,6 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
      */
     private boolean isDmgOpen() {
         return openDmg && mTextSelectSize != mTextUnSelectSize;
-    }
-
-    public void addNewTab(String title) {
-        View tabView = View.inflate(mContext, R.layout.layout_scale_tab, null);
-        if (mTitles != null) {
-            mTitles.add(title);
-        }
-
-        CharSequence pageTitle = mTitles == null ? mViewPager.getAdapter().getPageTitle(mTabCount) : mTitles.get(mTabCount);
-        addTab(mTabCount, pageTitle.toString(), tabView);
-        this.mTabCount = mTitles == null ? mViewPager.getAdapter().getCount() : mTitles.size();
-
-        updateTabStyles();
     }
 
     /**
@@ -470,7 +469,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void generateTitleDmg(View tabView, TextView textView, int position) {
         // 如果需要开启镜像，需要把所有的字设置为选中的字体
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
-        ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
+        ImageView imageView = tabView.findViewById(R.id.tv_tab_title_dmg);
         imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
         imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
 //        iTabScaleTransformer.setNormalWidth(position, imageView.getDrawable().getIntrinsicWidth(), position == mViewPager.getCurrentItem());
@@ -988,11 +987,30 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         if (tipView != null) {
             UnreadMsgUtils.show(tipView, num);
 
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tipView.getLayoutParams();
+            if (openDmg) {
+                params.addRule(RelativeLayout.ALIGN_END, R.id.tv_tab_title_dmg);
+                params.addRule(RelativeLayout.ALIGN_TOP, R.id.tv_tab_title_dmg);
+            } else {
+                params.addRule(RelativeLayout.ALIGN_END, R.id.tv_tab_title);
+                params.addRule(RelativeLayout.ALIGN_TOP, R.id.tv_tab_title);
+            }
+
+            // 红点的位置
+            if (num <= 0) {
+                params.topMargin = mTabDotMarginTop;
+                params.rightMargin = mTabDotMarginRight;
+            }
+            // 未读数的位置
+            else {
+                params.topMargin = mTabMsgMarginTop;
+                params.rightMargin = mTabMsgMarginRight;
+            }
+
+            tipView.setLayoutParams(params);
             if (mInitSetMap.get(position)) {
                 return;
             }
-
-            setMsgMargin(position, 4, 2);
             mInitSetMap.put(position, true);
         }
     }
@@ -1021,30 +1039,6 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             tipView.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * 设置未读消息偏移,原点为文字的右上角.当控件高度固定,消息提示位置易控制,显示效果佳
-     */
-    public void setMsgMargin(int position, float leftPadding, float bottomPadding) {
-        if (position >= mTabCount) {
-            position = mTabCount - 1;
-        }
-        View tabView = mTabsContainer.getChildAt(position);
-        MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
-        if (tipView != null) {
-//            TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
-//            mTextPaint.setTextSize(position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
-            ImageView imageView = tabView.findViewById(R.id.tv_tav_title_dmg);
-//            float textWidth = mTextPaint.measureText(tv_tab_title.getText().toString());
-            float textWidth = imageView.getWidth();
-//            float textHeight = mTextPaint.descent() - mTextPaint.ascent();
-            float textHeight = imageView.getHeight();
-            MarginLayoutParams lp = (MarginLayoutParams) tipView.getLayoutParams();
-            lp.leftMargin = mTabWidth >= 0 ? (int) (mTabWidth / 2 + textWidth / 2 + dp2px(leftPadding)) : (int) (mTabPadding + textWidth + dp2px(leftPadding));
-            lp.topMargin = mHeight > 0 ? (int) (mHeight - textHeight) / 2 - dp2px(bottomPadding) : 0;
-            tipView.setLayoutParams(lp);
         }
     }
 

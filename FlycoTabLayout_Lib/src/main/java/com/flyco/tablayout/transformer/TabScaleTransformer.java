@@ -92,7 +92,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
 
     private int changTabDmgWidth(int position, float scale, int leftWidth) {
         final TextView currentTab = slidingScaleTabLayout.getTitle(position);
-        final ImageView currentTabDmg = (ImageView) ViewUtils.findBrotherView(currentTab, R.id.tv_tav_title_dmg, 3);
+        final ImageView currentTabDmg = (ImageView) ViewUtils.findBrotherView(currentTab, R.id.tv_tab_title_dmg, 3);
         if (currentTabDmg == null) return 0;
         ViewGroup.LayoutParams params = currentTabDmg.getLayoutParams();
         if (leftWidth != 0) {
