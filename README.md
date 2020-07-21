@@ -1,7 +1,7 @@
 # FlycoTabLayoutZ
 在FlycoTabLayout的基础上，扩展出SlidingScaleTabLayout，实现滑动可以改变tab字体的大小的切换效果
 
-首先感谢FlycoTabLayout原作者的开源精神，关于FlycoTabLayout原本的具体用法请移步：
+首先感谢FlycoTabLayout原作者的开源精神，此文档仅描述SlidingScaleTabLayout的用法，关于FlycoTabLayout原本的具体用法请移步：
 <br /> 
 https://github.com/H07000223/FlycoTabLayout
   
@@ -93,7 +93,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     <attr name="tl_tab_dot_marginTop" />
     <attr name="tl_tab_dot_marginRight" />
 
-    默认为标题文字的右上角。
+  默认为标题文字的右上角。
 
 
 ## 示例
