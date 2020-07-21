@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
@@ -398,7 +399,12 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         if (tv_tab_title != null) {
             tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
-            if (title != null) tv_tab_title.setText(title);
+            tv_tab_title.setText(title);
+//            if (TextUtils.isEmpty(title)) {
+//                tabView.setVisibility(View.GONE);
+//            } else {
+//                tabView.setVisibility(View.VISIBLE);
+//            }
         }
 
         tabView.setOnClickListener(new OnClickListener() {
@@ -467,6 +473,11 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     }
 
     private void generateTitleDmg(View tabView, TextView textView, int position) {
+        // 空字符串不能做镜像，否则会引发空指针
+        if (TextUtils.isEmpty(textView.getText())) {
+            return;
+        }
+
         // 如果需要开启镜像，需要把所有的字设置为选中的字体
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
         ImageView imageView = tabView.findViewById(R.id.tv_tab_title_dmg);
@@ -1065,6 +1076,22 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
             return null;
         }
         return (TextView) tabView.findViewById(R.id.tv_tab_title);
+    }
+
+    public ImageView getDmgView(int position) {
+        if (position >= mTabCount) {
+            position = mTabCount - 1;
+        }
+        View tabView = mTabsContainer.getChildAt(position);
+        if (tabView == null) {
+            return null;
+        }
+
+//        if (tabView.getVisibility() != View.GONE) {
+//            return null;
+//        }
+
+        return (ImageView) tabView.findViewById(R.id.tv_tab_title_dmg);
     }
 
     private OnTabSelectListener mListener;

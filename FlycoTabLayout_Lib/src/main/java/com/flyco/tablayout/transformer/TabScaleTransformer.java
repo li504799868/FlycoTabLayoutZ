@@ -6,9 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.flyco.tablayout.R;
 import com.flyco.tablayout.SlidingScaleTabLayout;
-import com.flyco.tablayout.utils.ViewUtils;
 
 /**
  * Created by li.zhipeng on 2019/1/3.
@@ -91,9 +89,9 @@ public class TabScaleTransformer implements ITabScaleTransformer {
     }
 
     private int changTabDmgWidth(int position, float scale, int leftWidth) {
-        final TextView currentTab = slidingScaleTabLayout.getTitle(position);
-        final ImageView currentTabDmg = (ImageView) ViewUtils.findBrotherView(currentTab, R.id.tv_tab_title_dmg, 3);
+        final ImageView currentTabDmg = slidingScaleTabLayout.getDmgView(position);
         if (currentTabDmg == null) return 0;
+        if (currentTabDmg.getDrawable() == null) return 0;
         ViewGroup.LayoutParams params = currentTabDmg.getLayoutParams();
         if (leftWidth != 0) {
             params.width = leftWidth;
