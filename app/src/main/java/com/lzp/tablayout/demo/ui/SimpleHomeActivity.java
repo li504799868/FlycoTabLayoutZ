@@ -17,13 +17,11 @@ public class SimpleHomeActivity extends AppCompatActivity {
             "SlidingTabLayout", "CommonTabLayout",
             "SegmentTabLayout", "SlidingScaleTabLayout(new)",
             "SlidingScaleTabLayoutFragmentActivity(new)",
-            "SlidingScaleTabLayoutFragmentActivity(2)",
-            "SlidingTabLayout without ViewPager"};
+            "SlidingScaleTabLayout without ViewPager(new)"};
     private final Class<?>[] mClasses = {
             SlidingTabActivity.class, CommonTabActivity.class,
             SegmentTabActivity.class, SlidingScaleTabLayoutActivity.class,
             SlidingScaleTabLayoutFragmentActivity.class,
-            SlidingScaleTabLayoutActivity2.class,
             SlidingTabLayoutWithoutViewPagerActivity3.class};
 
     @Override

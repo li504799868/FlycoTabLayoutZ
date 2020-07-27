@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.SlidingScaleTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -38,8 +36,6 @@ public class SlidingTabLayoutWithoutViewPagerActivity3 extends AppCompatActivity
     };
 
     private SlidingTabLayout slidingTabLayout;
-    private CommonTabLayout commonTabLayout;
-    private SegmentTabLayout segmentTabLayout;
     private SlidingScaleTabLayout slidingScaleTabLayout;
 
     private UltraViewPager viewPager;
@@ -50,8 +46,6 @@ public class SlidingTabLayoutWithoutViewPagerActivity3 extends AppCompatActivity
         setContentView(R.layout.activity_sliding_scale_tab_layout3);
 
         slidingTabLayout = findViewById(R.id.tl_1);
-        commonTabLayout = findViewById(R.id.tl_2);
-        segmentTabLayout = findViewById(R.id.tl_3);
         slidingScaleTabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.ultra_viewpager);
 

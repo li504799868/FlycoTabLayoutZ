@@ -18,30 +18,6 @@
         app:tl_underline_gravity="TOP"
         app:tl_underline_height="1dp" />
 
-    <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tl_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        app:tl_indicator_color="#2C97DE"
-        app:tl_textSelectColor="#2C97DE"
-        app:tl_textUnSelectColor="#66000000"
-        app:tl_underline_color="#DDDDDD"
-        app:tl_underline_height="1dp" />
-
-    <com.flyco.tablayout.SegmentTabLayout
-        android:id="@+id/tl_3"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        app:tl_bar_color="#ffffff"
-        app:tl_indicator_color="#2C97DE"
-        app:tl_indicator_corner_radius="8dp"
-        app:tl_tab_padding="20dp" />
-
     <com.flyco.tablayout.SlidingScaleTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
