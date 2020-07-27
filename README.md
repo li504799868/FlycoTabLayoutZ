@@ -97,6 +97,14 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
 
 1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
 
+### v1.3.1新增
+
+  修改SlidingTabLayout和SlidingScaleTabLayout可以单独使用，新增:
+  
+    setTitle（String[] titles) // 设置标题集合
+    
+  具体使用请参考Demo。
+
 ## 示例
 
 xml:
