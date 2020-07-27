@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".ui.SlidingTabLayoutWithoutViewPagerActivity3" />
         <activity android:name=".ui.SimpleHomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,6 @@
         <activity
             android:name=".ui.SlidingScaleTabLayoutFragmentActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.SlidingScaleTabLayoutActivity2"
             android:screenOrientation="portrait" />

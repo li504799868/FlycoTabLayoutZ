@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/tl_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#666666"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        app:tl_indicator_gravity="TOP"
+        app:tl_textBold="SELECT"
+        app:tl_underline_color="#1A000000"
+        app:tl_underline_gravity="TOP"
+        app:tl_underline_height="1dp" />
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tl_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:tl_indicator_color="#2C97DE"
+        app:tl_textSelectColor="#2C97DE"
+        app:tl_textUnSelectColor="#66000000"
+        app:tl_underline_color="#DDDDDD"
+        app:tl_underline_height="1dp" />
+
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/tl_3"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        app:tl_bar_color="#ffffff"
+        app:tl_indicator_color="#2C97DE"
+        app:tl_indicator_corner_radius="8dp"
+        app:tl_tab_padding="20dp" />
+
+    <com.flyco.tablayout.SlidingScaleTabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tl_indicator_color="@color/colorAccent"
+        app:tl_indicator_corner_radius="3dp"
+        app:tl_indicator_gravity="BOTTOM"
+        app:tl_indicator_height="2dp"
+        app:tl_indicator_width="7dp"
+        app:tl_openTextDmg="false"
+        app:tl_tab_marginBottom="8dp"
+
+        app:tl_tab_padding="15dp"
+        app:tl_tab_vertical_gravity="Bottom"
+        app:tl_textBold="SELECT"
+
+        app:tl_textSelectColor="@color/colorAccent"
+        app:tl_textSelectSize="20sp"
+        app:tl_textUnSelectColor="@color/colorPrimaryDark"
+        app:tl_textUnSelectSize="14sp" />
+
+    <com.tmall.ultraviewpager.UltraViewPager
+        android:id="@+id/ultra_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray" />
+
+</LinearLayout>

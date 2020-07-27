@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.flyco.tablayout.SlidingScaleTabLayout;
 import com.lzp.tablayout.demo.adapter.SimpleHomeAdapter;
 
 public class SimpleHomeActivity extends AppCompatActivity {
@@ -18,12 +17,14 @@ public class SimpleHomeActivity extends AppCompatActivity {
             "SlidingTabLayout", "CommonTabLayout",
             "SegmentTabLayout", "SlidingScaleTabLayout(new)",
             "SlidingScaleTabLayoutFragmentActivity(new)",
-            "SlidingScaleTabLayoutFragmentActivity(2)"};
+            "SlidingScaleTabLayoutFragmentActivity(2)",
+            "SlidingTabLayout without ViewPager"};
     private final Class<?>[] mClasses = {
             SlidingTabActivity.class, CommonTabActivity.class,
             SegmentTabActivity.class, SlidingScaleTabLayoutActivity.class,
             SlidingScaleTabLayoutFragmentActivity.class,
-            SlidingScaleTabLayoutActivity2.class};
+            SlidingScaleTabLayoutActivity2.class,
+            SlidingTabLayoutWithoutViewPagerActivity3.class};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
