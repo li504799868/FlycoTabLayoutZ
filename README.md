@@ -95,6 +95,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
 
   默认为标题文字的右上角。
 
+1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
 
 ## 示例
 
