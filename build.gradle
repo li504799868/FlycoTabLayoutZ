@@ -15,6 +15,22 @@ buildscript {
     }
 }
 
+//configurations.all {
+//    //循环一个个的依赖库
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        //获取当前循环到的依赖库
+//        def requested = details.requested
+//        //如果这个依赖库群组的名字是com.android.support
+//        if (requested.group == 'com.android.support') {
+//            //且其名字不是以multidex开头的
+//            if (!requested.name.startsWith("appcompat-v7")) {
+//                //这里指定需要统一的依赖版本
+//                details.useVersion '28.0.0'
+//            }
+//        }
+//    }
+//}
+
 allprojects {
     repositories {
         google()
