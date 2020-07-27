@@ -1,7 +1,7 @@
 # FlycoTabLayoutZ
 在FlycoTabLayout的基础上，扩展出SlidingScaleTabLayout，实现滑动可以改变tab字体的大小的切换效果
 
-首先感谢FlycoTabLayout原作者的开源精神，关于FlycoTabLayout原本的具体用法请移步：
+首先感谢FlycoTabLayout原作者的开源精神，此文档仅描述SlidingScaleTabLayout的用法，关于FlycoTabLayout原本的具体用法请移步：
 <br /> 
 https://github.com/H07000223/FlycoTabLayout
   
@@ -43,7 +43,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     }
     
    
-   <b>强烈推荐升级到1.2.1版本</b>
+   <b>强烈推荐升级到1.2.1及以上版本</b>
     
     
 ### 1.1.1 新增
@@ -81,7 +81,22 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
   设置tab内容的位置，可以改变缩放效果的锚点。默认都为Center，居中显示。
 
-    
+### 1.2.3 新增
+  
+  修复红点消息显示位置不正确的问题，新增自定义属性：
+
+    <!-- 未读消息的位置 -->
+    <attr name="tl_tab_msg_marginTop" />
+    <attr name="tl_tab_msg_marginRight" />
+
+    <!-- 红点的位置 -->
+    <attr name="tl_tab_dot_marginTop" />
+    <attr name="tl_tab_dot_marginRight" />
+
+  默认为标题文字的右上角。
+
+1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
+
 ## 示例
 
 xml:
