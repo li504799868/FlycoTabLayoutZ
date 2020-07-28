@@ -53,7 +53,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
   具体使用请参考Demo。
   
-### 1.2.3 新增
+### v1.2.3 新增
   
   修复红点消息显示位置不正确的问题，新增自定义属性：
 
@@ -70,7 +70,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
 1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
 
    
-### 1.2.1 新增
+### v1.2.1 新增
 
   删除自定义属性：
     
@@ -94,7 +94,7 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
   设置tab内容的位置，可以改变缩放效果的锚点。默认都为Center，居中显示。
 
-### 1.1.1 新增
+### v1.1.1 新增
   
   新增自定义属性:是否开启文字的图片镜像 ，解决SlidingScaleTabLayou文字变化抖动的问题：
   <br />
