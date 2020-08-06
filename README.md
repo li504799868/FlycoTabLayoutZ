@@ -44,20 +44,33 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
    
    <b>强烈推荐升级到1.2.1及以上版本</b>
-    
-    
-### 1.1.1 新增
+
+### v1.3.1新增
+
+  修改SlidingTabLayout和SlidingScaleTabLayout可以单独使用，新增:
   
-  新增自定义属性:是否开启文字的图片镜像 ，解决SlidingScaleTabLayou文字变化抖动的问题：
-  <br />
+    setTitle（String[] titles) // 设置标题集合
     
-    <attr name="tl_openTextDmg" format="boolean"/>
+  具体使用请参考Demo。
+  
+### v1.2.3 新增
+  
+  修复红点消息显示位置不正确的问题，新增自定义属性：
+
+    <!-- 未读消息的位置 -->
+    <attr name="tl_tab_msg_marginTop" />
+    <attr name="tl_tab_msg_marginRight" />
+
+    <!-- 红点的位置 -->
+    <attr name="tl_tab_dot_marginTop" />
+    <attr name="tl_tab_dot_marginRight" />
+
+  默认为标题文字的右上角。
+
+1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
+
    
-   请注意：如果设置tl_openTextDmg为true，但是tl_textSelectSize与tl_textUnSelectSize相等，同样不会开启图片副本；
-   
-   具体原因以及解决方案请查看：https://blog.csdn.net/u011315960/article/details/103902279
-   
-### 1.2.1 新增
+### v1.2.1 新增
 
   删除自定义属性：
     
@@ -81,21 +94,16 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
   设置tab内容的位置，可以改变缩放效果的锚点。默认都为Center，居中显示。
 
-### 1.2.3 新增
+### v1.1.1 新增
   
-  修复红点消息显示位置不正确的问题，新增自定义属性：
-
-    <!-- 未读消息的位置 -->
-    <attr name="tl_tab_msg_marginTop" />
-    <attr name="tl_tab_msg_marginRight" />
-
-    <!-- 红点的位置 -->
-    <attr name="tl_tab_dot_marginTop" />
-    <attr name="tl_tab_dot_marginRight" />
-
-  默认为标题文字的右上角。
-
-1.2.x版本优化方案请查看: https://blog.csdn.net/u011315960/article/details/107607134
+  新增自定义属性:是否开启文字的图片镜像 ，解决SlidingScaleTabLayou文字变化抖动的问题：
+  <br />
+    
+    <attr name="tl_openTextDmg" format="boolean"/>
+   
+   请注意：如果设置tl_openTextDmg为true，但是tl_textSelectSize与tl_textUnSelectSize相等，同样不会开启图片副本；
+   
+   具体原因以及解决方案请查看：https://blog.csdn.net/u011315960/article/details/103902279
 
 ## 示例
 
