@@ -33,7 +33,7 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyViewPagerAdapter());
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setViewPager(viewPager);
         viewPager.setCurrentItem(2);
 
@@ -45,7 +45,7 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 12;
         }
 
         @Nullable
@@ -63,7 +63,7 @@ public class SlidingScaleTabLayoutActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             TextView textView = new TextView(SlidingScaleTabLayoutActivity.this);
-            textView.setBackgroundColor(colors[position]);
+            textView.setBackgroundColor(colors[position % colors.length]);
             textView.setText(getPageTitle(position));
             container.addView(textView);
             return textView;

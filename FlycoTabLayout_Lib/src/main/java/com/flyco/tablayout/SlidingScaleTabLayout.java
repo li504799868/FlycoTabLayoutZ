@@ -410,7 +410,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private void addTab(final int position, String title, View tabView) {
         TextView tv_tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
         if (tv_tab_title != null) {
-            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
+//            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
             tv_tab_title.setText(title);
 //            if (TextUtils.isEmpty(title)) {
 //                tabView.setVisibility(View.GONE);
@@ -547,7 +547,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         for (int i = 0; i < mTabCount; ++i) {
             View tabView = mTabsContainer.getChildAt(i);
             final boolean isSelect = i == position;
-            TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
+            final TextView tab_title = (TextView) tabView.findViewById(R.id.tv_tab_title);
 
             if (tab_title != null) {
                 tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnSelectColor);
@@ -564,7 +564,13 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                     tab_title.setVisibility(View.VISIBLE);
                     generateTitleDmg(tabView, tab_title, i);
                 } else {
-                    tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
+                    final int finalI = i;
+                    tab_title.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, finalI == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
+                        }
+                    });
                 }
             }
         }

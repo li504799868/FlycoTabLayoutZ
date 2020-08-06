@@ -32,9 +32,9 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
         SlidingScaleTabLayout tabLayout = findViewById(R.id.tablayout);
         ViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setViewPager(viewPager);
-        viewPager.setCurrentItem(3);
+        viewPager.setCurrentItem(1);
     }
 
     class MyViewPagerAdapter extends FragmentPagerAdapter {
@@ -45,13 +45,13 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 12;
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return titles[position % titles.length];
         }
 
         @Override

@@ -25,8 +25,6 @@ public class TabScaleTransformer implements ITabScaleTransformer {
 
     private boolean openDmg;
 
-//    private SparseIntArray widthCache = new SparseIntArray();
-
     public TabScaleTransformer(SlidingScaleTabLayout slidingScaleTabLayout,
                                float textSelectSize, float textUnSelectSize, boolean openDmg) {
         this.slidingScaleTabLayout = slidingScaleTabLayout;
@@ -38,35 +36,46 @@ public class TabScaleTransformer implements ITabScaleTransformer {
 
     @Override
     public void setNormalWidth(int position, int width, boolean isSelect) {
-//        if (isSelect) {
-//            widthCache.put(position, (int) (width * (1 + maxScale)));
-//        } else {
-//            widthCache.put(position, width);
-//        }
     }
 
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//        Log.i("lzp", "position:" + position + " positionOffset：" + positionOffset + " positionOffsetPixels:" + positionOffsetPixels);
+        Log.i("TabScaleTransformer", "position:" + position);
         // 字体大小相同，不需要切换
         if (textSelectSize == textUnSelectSize) return;
         if (openDmg) {
+            for (int i = 0; i < slidingScaleTabLayout.getTabCount(); i++) {
+                if (i != position && i != position + 1) {
+                    changTabDmgWidth(i, 1);
+                }
+            }
             changeDmgSize(position, positionOffset);
         } else {
+            for (int i = 0; i < slidingScaleTabLayout.getTabCount(); i++) {
+                if (i != position && i != position + 1) {
+                    updateTextSize(i, 1);
+                }
+            }
             changeTextSize(position, positionOffset);
         }
     }
 
     private void changeTextSize(final int position, final float positionOffset) {
+        updateTextSize(position, positionOffset);
+        if (position + 1 < slidingScaleTabLayout.getTabCount()) {
+            updateTextSize(position + 1, 1 - positionOffset);
+        }
+    }
+
+    private void updateTextSize(final int position, final float positionOffset) {
+        final TextView currentTab = slidingScaleTabLayout.getTitle(position);
         // 必须要在View调用post更新样式，否则可能无效
-        slidingScaleTabLayout.post(new Runnable() {
+        currentTab.post(new Runnable() {
             @Override
             public void run() {
-                final TextView currentTab = slidingScaleTabLayout.getTitle(position);
-                currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * positionOffset));
-
-                if (position + 1 < slidingScaleTabLayout.getTabCount()) {
-                    final TextView nextTab = slidingScaleTabLayout.getTitle(position + 1);
-                    nextTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * (1 - positionOffset)));
+                int textSize = (int) (textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * positionOffset));
+                if (currentTab.getTextSize() != textSize){
+                    currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                    currentTab.requestLayout();
                 }
             }
         });
@@ -78,28 +87,24 @@ public class TabScaleTransformer implements ITabScaleTransformer {
             public void run() {
 //                Log.i("lzp", "position:" + position + " positionOffset：" + positionOffset);
                 float scale = 1 + maxScale * (1 - positionOffset);
-                changTabDmgWidth(position, scale, 0);
+                changTabDmgWidth(position, scale);
                 if (position + 1 < slidingScaleTabLayout.getTabCount()) {
-                    //计算剩余宽度，避免抖动
-//                    int leftWidth = (widthCache.get(position) + widthCache.get(position + 1)) - consumeWidth;
-                    changTabDmgWidth(position + 1, 1 + maxScale * (positionOffset), 0);
+                    changTabDmgWidth(position + 1, 1 + maxScale * (positionOffset));
                 }
             }
         });
     }
 
-    private int changTabDmgWidth(int position, float scale, int leftWidth) {
+    private void changTabDmgWidth(int position, float scale) {
         final ImageView currentTabDmg = slidingScaleTabLayout.getDmgView(position);
-        if (currentTabDmg == null) return 0;
-        if (currentTabDmg.getDrawable() == null) return 0;
+        if (currentTabDmg == null) return;
+        if (currentTabDmg.getDrawable() == null) return;
         ViewGroup.LayoutParams params = currentTabDmg.getLayoutParams();
-        if (leftWidth != 0) {
-            params.width = leftWidth;
-        } else {
-            params.width = (int) (currentTabDmg.getMaxWidth() * scale);
+        int width = (int) (currentTabDmg.getMaxWidth() * scale);
+        if (params.width != width) {
+            params.width = width;
+            currentTabDmg.setLayoutParams(params);
         }
-        Log.i("lzp", "position:" + position + " scale：" + scale + " width:" + params.width);
-        currentTabDmg.setLayoutParams(params);
-        return params.width;
+//        Log.i("lzp", "position:" + position + " scale：" + scale + " width:" + params.width);
     }
 }
