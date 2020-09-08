@@ -21,7 +21,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
 
     private float textUnSelectSize;
 
-    private float maxScale;
+//    private float maxScale;
 
     private boolean openDmg;
 
@@ -30,7 +30,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
         this.slidingScaleTabLayout = slidingScaleTabLayout;
         this.textSelectSize = textSelectSize;
         this.textUnSelectSize = textUnSelectSize;
-        this.maxScale = (textSelectSize / textUnSelectSize) - 1;
+//        this.maxScale = (textSelectSize / textUnSelectSize) - 1;
         this.openDmg = openDmg;
     }
 
@@ -45,7 +45,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
         if (openDmg) {
             for (int i = 0; i < slidingScaleTabLayout.getTabCount(); i++) {
                 if (i != position && i != position + 1) {
-                    changTabDmgWidth(i, 1);
+                    changTabDmgWidth(i, 0);
                 }
             }
             changeDmgSize(position, positionOffset);
@@ -73,7 +73,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
             @Override
             public void run() {
                 int textSize = (int) (textSelectSize - Math.abs((textSelectSize - textUnSelectSize) * positionOffset));
-                if (currentTab.getTextSize() != textSize){
+                if (currentTab.getTextSize() != textSize) {
                     currentTab.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                     currentTab.requestLayout();
                 }
@@ -86,10 +86,10 @@ public class TabScaleTransformer implements ITabScaleTransformer {
             @Override
             public void run() {
 //                Log.i("lzp", "position:" + position + " positionOffset：" + positionOffset);
-                float scale = 1 + maxScale * (1 - positionOffset);
+                float scale = 1 - positionOffset;
                 changTabDmgWidth(position, scale);
                 if (position + 1 < slidingScaleTabLayout.getTabCount()) {
-                    changTabDmgWidth(position + 1, 1 + maxScale * (positionOffset));
+                    changTabDmgWidth(position + 1, positionOffset);
                 }
             }
         });
@@ -100,7 +100,7 @@ public class TabScaleTransformer implements ITabScaleTransformer {
         if (currentTabDmg == null) return;
         if (currentTabDmg.getDrawable() == null) return;
         ViewGroup.LayoutParams params = currentTabDmg.getLayoutParams();
-        int width = (int) (currentTabDmg.getMaxWidth() * scale);
+        int width = (int) (currentTabDmg.getMinimumWidth() + (currentTabDmg.getMaxWidth() - currentTabDmg.getMinimumWidth()) * scale);
         if (params.width != width) {
             params.width = width;
             currentTabDmg.setLayoutParams(params);

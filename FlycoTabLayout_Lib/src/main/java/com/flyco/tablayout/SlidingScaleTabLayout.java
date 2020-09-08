@@ -140,6 +140,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
     private int mTabMsgMarginRight;
     private int mTabDotMarginTop;
     private int mTabDotMarginRight;
+    private int mTabBackgroundId;
 
     private boolean openDmg = true;
 
@@ -236,7 +237,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
         mTabDotMarginTop = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_dot_marginTop, 0f);
         mTabDotMarginRight = (int) ta.getDimension(R.styleable.SlidingScaleTabLayout_tl_tab_dot_marginRight, 0f);
-
+        mTabBackgroundId = ta.getResourceId(R.styleable.SlidingScaleTabLayout_tl_tab_background, 0);
         openDmg = ta.getBoolean(R.styleable.SlidingScaleTabLayout_tl_openTextDmg, false);
         ta.recycle();
 
@@ -412,6 +413,10 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         if (tv_tab_title != null) {
 //            tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, position == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
             tv_tab_title.setText(title);
+            // 设置tab背景
+            if (mTabBackgroundId != 0){
+                tv_tab_title.setBackgroundResource(mTabBackgroundId);
+            }
 //            if (TextUtils.isEmpty(title)) {
 //                tabView.setVisibility(View.GONE);
 //            } else {
@@ -448,6 +453,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                 v.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);
                 tv_tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, i == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
                 tv_tab_title.setTextColor(i == mCurrentTab ? mTextSelectColor : mTextUnSelectColor);
+                // 设置选中状态
+                tv_tab_title.setSelected(i == mCurrentTab);
+
                 if (mTextAllCaps) {
                     tv_tab_title.setText(tv_tab_title.getText().toString().toUpperCase());
                 }
@@ -477,10 +485,29 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         }
 
         // 如果需要开启镜像，需要把所有的字设置为选中的字体
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
+//        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
+//        ImageView imageView = tabView.findViewById(R.id.tv_tab_title_dmg);
+//        imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
+//        imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
+
+
         ImageView imageView = tabView.findViewById(R.id.tv_tab_title_dmg);
-        imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
-        imageView.setMaxWidth(imageView.getDrawable().getIntrinsicWidth());
+        // 如果需要开启镜像，需要把所有的字设置为选中的字体
+        if (mTextSelectSize >= mTextUnSelectSize){
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSelectSize);
+            imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
+            int drawableWidth = imageView.getDrawable().getIntrinsicWidth();
+            imageView.setMinimumWidth((int) (drawableWidth * mTextUnSelectSize / mTextSelectSize));
+            imageView.setMaxWidth(drawableWidth);
+        }
+        else{
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextUnSelectSize);
+            imageView.setImageBitmap(ViewUtils.generateViewCacheBitmap(textView));
+            int drawableWidth = imageView.getDrawable().getIntrinsicWidth();
+            imageView.setMinimumWidth((int) (drawableWidth * mTextSelectSize / mTextUnSelectSize));
+            imageView.setMaxWidth(drawableWidth);
+        }
+
 //        iTabScaleTransformer.setNormalWidth(position, imageView.getDrawable().getIntrinsicWidth(), position == mViewPager.getCurrentItem());
         textView.setVisibility(View.GONE);
     }
@@ -543,7 +570,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
         }
     }
 
-    private void updateTabSelection(int position) {
+    private void  updateTabSelection(int position) {
         for (int i = 0; i < mTabCount; ++i) {
             View tabView = mTabsContainer.getChildAt(i);
             final boolean isSelect = i == position;
@@ -551,6 +578,9 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
 
             if (tab_title != null) {
                 tab_title.setTextColor(isSelect ? mTextSelectColor : mTextUnSelectColor);
+                // 设置选中状态
+                tab_title.setSelected(isSelect);
+
                 if (mTextBold == TEXT_BOLD_BOTH) {
                     tab_title.getPaint().setFakeBoldText(true);
                 }
@@ -569,6 +599,7 @@ public class SlidingScaleTabLayout extends HorizontalScrollView implements ViewP
                         @Override
                         public void run() {
                             tab_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, finalI == mCurrentTab ? mTextSelectSize : mTextUnSelectSize);
+                            tab_title.requestLayout();
                         }
                     });
                 }

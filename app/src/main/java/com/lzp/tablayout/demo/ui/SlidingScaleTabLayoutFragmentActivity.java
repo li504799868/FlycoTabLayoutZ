@@ -45,7 +45,7 @@ public class SlidingScaleTabLayoutFragmentActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 12;
+            return 4;
         }
 
         @Nullable

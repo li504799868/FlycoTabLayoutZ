@@ -71,6 +71,8 @@
     <attr name="tl_tab_dot_marginTop" format="dimension" />
     <attr name="tl_tab_dot_marginRight" format="dimension" />
 
+    <attr name="tl_tab_background" format="reference" />
+
     <!-- tab的位置 -->
     <attr name="tl_tab_gravity" format="enum">
         <enum name="Top" value="0" />
@@ -277,6 +279,7 @@
         <attr name="tl_tab_marginBottom" />
         <attr name="tl_tab_horizontal_gravity" />
         <attr name="tl_tab_vertical_gravity" />
+        <attr name="tl_tab_background" />
 
         <!-- title -->
         <attr name="tl_textSelectSize" />

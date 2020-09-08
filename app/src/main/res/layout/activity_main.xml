@@ -8,7 +8,7 @@
     <com.flyco.tablayout.SlidingScaleTabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         app:tl_indicator_color="@color/colorAccent"
         app:tl_indicator_corner_radius="3dp"
         app:tl_indicator_gravity="BOTTOM"
@@ -26,14 +26,15 @@
         app:tl_tab_msg_marginTop="-10dp"
 
         app:tl_tab_padding="15dp"
+        app:tl_tab_background="@drawable/selector_tab_bg"
 
         app:tl_tab_vertical_gravity="Bottom"
         app:tl_textBold="SELECT"
         app:tl_textSelectColor="@color/colorAccent"
-        app:tl_textSelectSize="20sp"
+        app:tl_textSelectSize="30sp"
 
         app:tl_textUnSelectColor="@color/colorPrimaryDark"
-        app:tl_textUnSelectSize="14sp" />
+        app:tl_textUnSelectSize="12sp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
