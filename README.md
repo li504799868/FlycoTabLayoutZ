@@ -44,6 +44,32 @@ SlidingScaleTabLayout支持SlidingTabLayout的全部特性。
     
    
    <b>强烈推荐升级到1.2.1及以上版本</b>
+   
+### v1.3.3新增
+   
+  新增tl_tab_background属性，设置tab标题文字的背景，建议使用selector:
+  
+    <?xml version="1.0" encoding="utf-8"?>
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+      <!-- 设置被选中的标题的背景 -->
+      <item android:state_selected="true">
+          <shape>
+              <!-- 建议使用此方法设置padding -->
+              <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
+              <solid android:color="#000000" />
+              <corners android:radius="999dp" />
+          </shape>
+      </item>
+      <!-- 设置未被选中的标题的背景 -->
+      <item>
+          <shape>
+            <!-- 建议使用此方法设置padding -->
+              <padding android:bottom="5dp" android:left="10dp" android:right="10dp" android:top="5dp" />
+              <solid android:color="#666666" />
+              <corners android:radius="999dp" />
+          </shape>
+      </item>
+    </selector>
 
 ### v1.3.1新增
 
